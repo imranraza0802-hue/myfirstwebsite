@@ -67,8 +67,32 @@ class MarioGame {
     // INITIALIZATION & INPUT
     // ----------------------------------------------------
     initInput() {
+        // Lose focus on any clicked button to prevent Space/Enter from triggering them
+        document.addEventListener('click', (e) => {
+            if (e.target && e.target.tagName === 'BUTTON') {
+                e.target.blur();
+            }
+            // Also handle clicks on child elements of buttons (like span)
+            let parent = e.target.parentElement;
+            while (parent) {
+                if (parent.tagName === 'BUTTON') {
+                    parent.blur();
+                    break;
+                }
+                parent = parent.parentElement;
+            }
+        });
+
         // Keyboard bindings
         window.addEventListener('keydown', (e) => {
+            const gameKeys = [
+                'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+                'KeyA', 'KeyD', 'KeyW', 'KeyS', 'KeyZ', 'Space',
+                'KeyX', 'ShiftLeft', 'ShiftRight', 'KeyP', 'Enter'
+            ];
+            if (gameKeys.includes(e.code)) {
+                e.preventDefault();
+            }
             if (this.player.isDying) return;
             switch (e.code) {
                 case 'ArrowLeft':
