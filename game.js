@@ -524,20 +524,20 @@ class MarioGame {
                 if (this.checkAABB(this.player, tileBox)) {
                     if (axis === 'x') {
                         if (this.player.vx > 0) {
-                            this.player.x = tileBox.x - this.player.width;
+                            this.player.x = tileBox.x - this.player.width - 0.01;
                             this.player.vx = 0;
                         } else if (this.player.vx < 0) {
-                            this.player.x = tileBox.x + tileBox.width;
+                            this.player.x = tileBox.x + tileBox.width + 0.01;
                             this.player.vx = 0;
                         }
                     } else if (axis === 'y') {
                         if (this.player.vy > 0) {
-                            this.player.y = tileBox.y - this.player.height;
+                            this.player.y = tileBox.y - this.player.height - 0.01;
                             this.player.vy = 0;
                             this.player.onGround = true;
                         } else if (this.player.vy < 0) {
                             // Hitting blocks from below
-                            this.player.y = tileBox.y + tileBox.height;
+                            this.player.y = tileBox.y + tileBox.height + 0.01;
                             this.player.vy = 0;
                             this.handleBlockHit(c, r, tile);
                         }
